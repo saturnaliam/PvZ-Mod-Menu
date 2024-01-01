@@ -3,6 +3,8 @@
 Game::Game() {
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
   this->coinAddress = this->followPointerPath(this->coinOffsets);
+  this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);
+  this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
 }
 
 std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {

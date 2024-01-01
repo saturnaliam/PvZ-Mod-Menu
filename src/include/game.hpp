@@ -1,10 +1,20 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
+
+struct FunctionHook {
+  std::uint32_t bytes;
+  std::vector<std::uint8_t> oldOpcodes;
+  std::vector<std::uint8_t> newOpcodes;
+  std::uint8_t* hookLocation;
+};
 
 class Game {
   private:
     std::int32_t* followPointerPath(std::vector<std::ptrdiff_t> offsets);
+
+    FunctionHook coinCap;
 
     std::vector<std::ptrdiff_t> coinOffsets = { 0x13A90C, 0x694, 0x8C };
     std::vector<std::ptrdiff_t> fertilizerOffsets = { 0x32F868, 0x25C, 0x150, 0xC, 0x10, 0x40, 0x254 }; // TODO these offsets r fucked
@@ -13,6 +23,7 @@ class Game {
 
   public:
     Game();
+
     std::intptr_t baseAddress;
     std::int32_t* coinAddress;
     std::int32_t* chocolateAddress;

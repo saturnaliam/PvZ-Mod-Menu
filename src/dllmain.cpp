@@ -29,6 +29,8 @@ DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD_PTR ul_reason_for_call, LPVOID lpReserved) {
   if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
+    DWORD_PTR oldCoinCapProtect;
+    VirtualProtect((void*)global::game.coinCapHook, 2, PAGE_EXECUTE_READWRITE, &oldCoinCapProtect);
     CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)attachedMain, hModule, 0, NULL);
   }
 
