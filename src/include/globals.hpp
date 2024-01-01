@@ -10,5 +10,7 @@
 #define MAX_COINS 999990
 
 namespace global {
+  inline bool coinCapHackEnabled = false;
+
   inline Game game;
 }
