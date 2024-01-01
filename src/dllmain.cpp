@@ -1,25 +1,26 @@
 #include "include/globals.hpp"
 #include "include/hacks.hpp"
+#include "include/gui.hpp"
+#include <thread>
 #include <conio.h>
 #include <iostream>
 
 DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
-  AllocConsole();
+  gui::CreateHWindow("pvz menu", "Mod Menu Class");
+  gui::CreateDevice();
+  gui::CreateImGui();
 
-  FILE* fpw;
-  freopen_s(&fpw, "CONOUT$", "w", stdout);
+  while (gui::exit) {
+    gui::BeginRender();
+    gui::Render();
+    gui::EndRender();
 
-  while (!GetAsyncKeyState('D')) {
-    std::cout << global::game.coinAddress << " | " << *global::game.coinAddress << "\r";
-
-    if (GetAsyncKeyState('C')) {
-      hacks::setCoins(30);
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
-  fclose(fpw);
-  fclose(stdout);
-  FreeConsole();
+  gui::DestroyImGui();
+  gui::DestroyDevice();
+  gui::DestroyHWindow();
 
   // Ejecting the thread
   FreeLibraryAndExitThread(hModule, 0);

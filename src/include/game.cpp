@@ -9,7 +9,7 @@ std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
   std::intptr_t temp = this->baseAddress;
 
   // rework this pls
-  for (auto i = 0; i < offsets.size() - 1; i++) {
+  for (size_t i = 0; i < offsets.size() - 1; i++) {
     temp = *reinterpret_cast<std::intptr_t*>(temp + offsets[i]);
   }
 
