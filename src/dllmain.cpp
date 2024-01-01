@@ -10,7 +10,7 @@ DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
   freopen_s(&fpw, "CONOUT$", "w", stdout);
 
   while (!GetAsyncKeyState('D')) {
-    std::cout << global::game.coinAddress << " | " << *global::game.coinAddress << "\n";
+    std::cout << global::game.coinAddress << " | " << *global::game.coinAddress << "\r";
 
     if (GetAsyncKeyState('C')) {
       hacks::setCoins(30);
