@@ -2,9 +2,9 @@
 
 #include <format>
 
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_dx9.h"
-#include "../imgui/imgui_impl_win32.h"
+#include "../../imgui/imgui.h"
+#include "../../imgui/imgui_impl_dx9.h"
+#include "../../imgui/imgui_impl_win32.h"
 #include "globals.hpp"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT message, WPARAM wideParameter, LPARAM longParameter);
