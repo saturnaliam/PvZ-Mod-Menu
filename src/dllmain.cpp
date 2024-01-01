@@ -1,11 +1,25 @@
 #include "include/globals.hpp"
 #include "include/hacks.hpp"
 #include <conio.h>
+#include <iostream>
 
 DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
-  while (!GetAsyncKeyState('D')) {
+  AllocConsole();
 
+  FILE* fpw;
+  freopen_s(&fpw, "CONOUT$", "w", stdout);
+
+  while (!GetAsyncKeyState('D')) {
+    std::cout << global::game.coinAddress << " | " << *global::game.coinAddress << "\n";
+
+    if (GetAsyncKeyState('C')) {
+      hacks::setCoins(30);
+    }
   }
+
+  fclose(fpw);
+  fclose(stdout);
+  FreeConsole();
 
   // Ejecting the thread
   FreeLibraryAndExitThread(hModule, 0);
