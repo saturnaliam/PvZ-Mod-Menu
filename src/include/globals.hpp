@@ -7,6 +7,8 @@
 
 #include "game.hpp"
 
+#define MAX_COINS 999990
+
 namespace global {
   inline Game game;
 }

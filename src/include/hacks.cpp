@@ -3,6 +3,8 @@
 void hacks::disableCoinsCap(bool disabled) {
   global::game.coinCapAddHook.setHook(disabled);
   global::game.coinCapSubtractHook.setHook(disabled);
+
+  if (!disabled) hacks::setCoins(MAX_COINS);
 }
 
 void hacks::setCoins(std::int32_t coins) {

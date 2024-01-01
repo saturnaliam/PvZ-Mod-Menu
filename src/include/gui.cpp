@@ -193,6 +193,7 @@ void gui::Render() noexcept {
   ImGui::SetNextWindowSize({WIDTH, HEIGHT});
   ImGui::Begin("PvZ Mods", &exit, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
+  static bool coinCapDisabled = false;
   std::int32_t coins = *global::game.coinAddress * 10;
   std::int32_t bugSpray = *global::game.bugSprayAddress - 1000;
   std::int32_t chocolate = *global::game.chocolateAddress - 1000;
@@ -200,10 +201,12 @@ void gui::Render() noexcept {
   ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
   ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");
   ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
+  ImGui::Checkbox("Disable coins cap", &coinCapDisabled);
 
   hacks::setCoins(coins);
   hacks::setBugSpray(bugSpray);
   hacks::setChocolate(chocolate);
+  hacks::disableCoinsCap(coinCapDisabled);
 
   ImGui::End();
 }

@@ -10,7 +10,6 @@ DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
   gui::CreateDevice();
   gui::CreateImGui();
 
-  hacks::disableCoinsCap(true);
   while (gui::exit) {
     gui::BeginRender();
     gui::Render();
