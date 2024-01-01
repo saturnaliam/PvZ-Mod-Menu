@@ -17,8 +17,8 @@ class Game {
     Game();
     ~Game();
 
-    FunctionHook coinCapAddHook; // Caps the coins, but only when coins are added.
-    FunctionHook coinCapSubtractHook; // Caps the coins, but only when coins are subtracted.
+    Hook coinCapAddHook; // Caps the coins, but only when coins are added.
+    Hook coinCapSubtractHook; // Caps the coins, but only when coins are subtracted.
 
     std::intptr_t baseAddress;
     std::int32_t* coinAddress;

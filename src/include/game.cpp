@@ -1,5 +1,9 @@
 #include "globals.hpp"
 
+/**
+ * \brief General initialization of the object.
+ *
+ */
 Game::Game() {
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
   this->coinAddress = this->followPointerPath(this->coinOffsets);
@@ -10,10 +14,20 @@ Game::Game() {
   this->coinCapSubtractHook.Initialize(0x9B635, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
 }
 
+/**
+ * \brief Destroys all hooks, then the game object.
+ *
+ */
 Game::~Game() {
-  this->coinCapAddHook.~FunctionHook();
+  this->coinCapAddHook.~Hook();
 }
 
+/**
+ * \brief Follows a pointer path starting from the base address.
+ *
+ * \param offsets The pointer offsets.
+ * \return The pointer at the end of the path.
+ */
 std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
   std::intptr_t temp = this->baseAddress;
 

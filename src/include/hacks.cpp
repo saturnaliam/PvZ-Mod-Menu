@@ -1,10 +1,15 @@
 #include "hacks.hpp"
 
-void hacks::disableCoinsCap(bool disabled) {
-  global::game.coinCapAddHook.setHook(disabled);
-  global::game.coinCapSubtractHook.setHook(disabled);
+/**
+ * \brief Disables or enables the coin cap of 999,990
+ *
+ * \param hackEnabled Enables/disables the hack.
+ */
+void hacks::disableCoinsCap(bool hackEnabled) {
+  global::game.coinCapAddHook.setHook(hackEnabled);
+  global::game.coinCapSubtractHook.setHook(hackEnabled);
 
-  if (!disabled) hacks::setCoins(MAX_COINS);
+  if (!hackEnabled) hacks::setCoins(MAX_COINS);
 }
 
 void hacks::setCoins(std::int32_t coins) {

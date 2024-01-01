@@ -4,8 +4,9 @@
 #include <cstdint>
 #include <windows.h>
 
-class FunctionHook {
+class Hook {
   private:
+    std::uint32_t bytes;
     std::uint8_t* hookLocation;
     std::vector<std::uint8_t> oldOpcodes;
     std::vector<std::uint8_t> newOpcodes;
@@ -14,5 +15,5 @@ class FunctionHook {
   public:
     void Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vector<std::uint8_t> oldOpcodes, std::vector<std::uint8_t> newOpcodes);
     void setHook(bool hooked = true);
-    ~FunctionHook();
+    ~Hook();
 };

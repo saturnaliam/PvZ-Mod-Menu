@@ -6,7 +6,7 @@
 #include <iostream>
 
 DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
-  gui::CreateHWindow("pvz menu", "Mod Menu Class");
+  gui::CreateHWindow("pvz menu", "mmc");
   gui::CreateDevice();
   gui::CreateImGui();
 
