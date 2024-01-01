@@ -13,6 +13,15 @@ void hacks::disableCoinsCap(bool hackEnabled) {
 }
 
 /**
+ * \brief Disables the cap of 20 for fertilizer and bug spray.
+ *
+ * \param hackEnabled Enables/disables the hack.
+ */
+void hacks::disableShopCap(bool hackEnabled) {
+  global::game.shopCapHook.setHook(hackEnabled);
+}
+
+/**
  * \brief Sets coins to a specific value.
  *
  * \param coins The value to set the coins to.

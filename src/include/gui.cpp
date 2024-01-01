@@ -203,12 +203,14 @@ void gui::Render() noexcept {
   ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
   ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &fertilizer, NULL, NULL, "%d");
   ImGui::Checkbox("Disable coins cap", &global::coinCapHackEnabled);
+  ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
 
   hacks::setCoins(coins);
   hacks::setBugSpray(bugSpray);
   hacks::setChocolate(chocolate);
   hacks::setFertilizer(fertilizer);
   hacks::disableCoinsCap(global::coinCapHackEnabled);
+  hacks::disableShopCap(global::shopCapHackEnabled);
 
   ImGui::End();
 }

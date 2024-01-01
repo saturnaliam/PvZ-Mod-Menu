@@ -11,6 +11,7 @@
 
 namespace global {
   inline bool coinCapHackEnabled = false;
+  inline bool shopCapHackEnabled = false;
 
   inline Game game;
 }

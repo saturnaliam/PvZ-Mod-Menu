@@ -15,7 +15,8 @@ namespace hacks {
   // TODO Remove plant cooldown
   // TODO Make plants invincible
 
-  void disableCoinsCap(bool disabled);
+  void disableShopCap(bool hackEnabled);
+  void disableCoinsCap(bool hackEnabled);
 
   void setCoins(std::int32_t coins);
   void setChocolate(std::int32_t chocolate);
