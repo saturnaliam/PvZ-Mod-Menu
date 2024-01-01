@@ -1,5 +1,10 @@
 #include "hacks.hpp"
 
+void hacks::disableCoinsCap(bool disabled) {
+  global::game.coinCapAddHook.setHook(disabled);
+  global::game.coinCapSubtractHook.setHook(disabled);
+}
+
 void hacks::setCoins(std::int32_t coins) {
   *global::game.coinAddress = (coins / 10);
 }

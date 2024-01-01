@@ -3,12 +3,13 @@
 #include "globals.hpp"
 
 namespace hacks {
-  // TODO Remove money cap
   // TODO Free shop items
   // TODO Infinite money
   // TODO Infinite chocolate
   // TODO Infinite bug spray
   // TODO Infinite fertilizer
+
+  void disableCoinsCap(bool disabled);
 
   void setCoins(std::int32_t coins);
   void setChocolate(std::int32_t chocolate);

@@ -5,6 +5,13 @@ Game::Game() {
   this->coinAddress = this->followPointerPath(this->coinOffsets);
   this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);
   this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
+
+  this->coinCapAddHook.Initialize(0x34798, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
+  this->coinCapSubtractHook.Initialize(0x9B635, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
+}
+
+Game::~Game() {
+  this->coinCapAddHook.~FunctionHook();
 }
 
 std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
