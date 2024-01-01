@@ -204,6 +204,7 @@ void gui::Render() noexcept {
   ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &fertilizer, NULL, NULL, "%d");
   ImGui::Checkbox("Disable coins cap", &global::coinCapHackEnabled);
   ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
+  ImGui::Checkbox("Free shop items", &global::freeShopHackEnabled);
 
   hacks::setCoins(coins);
   hacks::setBugSpray(bugSpray);
@@ -211,6 +212,7 @@ void gui::Render() noexcept {
   hacks::setFertilizer(fertilizer);
   hacks::disableCoinsCap(global::coinCapHackEnabled);
   hacks::disableShopCap(global::shopCapHackEnabled);
+  hacks::freeShopItems(global::freeShopHackEnabled);
 
   ImGui::End();
 }

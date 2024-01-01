@@ -1,6 +1,15 @@
 #include "hacks.hpp"
 
 /**
+ * \brief Makes every shop item free.
+ *
+ * \param hackEnabled Enables/disables the hack.
+ */
+void hacks::freeShopItems(bool hackEnabled) {
+  global::game.shopItemCostHook.setHook(hackEnabled);
+}
+
+/**
  * \brief Disables or enables the coin cap of 999,990
  *
  * \param hackEnabled Enables/disables the hack.

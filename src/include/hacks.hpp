@@ -3,7 +3,6 @@
 #include "globals.hpp"
 
 namespace hacks {
-  // TODO Free shop items
   // TODO Infinite money
   // TODO Infinite chocolate
   // TODO Infinite bug spray
@@ -14,6 +13,7 @@ namespace hacks {
   // TODO Remove plant cooldown
   // TODO Make plants invincible
 
+  void freeShopItems(bool hackEnabled);
   void disableShopCap(bool hackEnabled);
   void disableCoinsCap(bool hackEnabled);
 
