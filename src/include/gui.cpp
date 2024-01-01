@@ -6,6 +6,7 @@
 #include "../../imgui/imgui_impl_dx9.h"
 #include "../../imgui/imgui_impl_win32.h"
 #include "globals.hpp"
+#include "hacks.hpp"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT message, WPARAM wideParameter, LPARAM longParameter);
 
@@ -190,9 +191,19 @@ void gui::Render() noexcept {
 
   ImGui::SetNextWindowPos({0, 0});
   ImGui::SetNextWindowSize({WIDTH, HEIGHT});
-  ImGui::Begin("hai", &exit, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+  ImGui::Begin("PvZ Mods", &exit, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-  ImGuiTabBarFlags tabFlags = ImGuiTabBarFlags_None;
+  std::int32_t coins = *global::game.coinAddress * 10;
+  std::int32_t bugSpray = *global::game.bugSprayAddress - 1000;
+  std::int32_t chocolate = *global::game.chocolateAddress - 1000;
+
+  ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
+  ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");
+  ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
+
+  hacks::setCoins(coins);
+  hacks::setBugSpray(bugSpray);
+  hacks::setChocolate(chocolate);
 
   ImGui::End();
 }
