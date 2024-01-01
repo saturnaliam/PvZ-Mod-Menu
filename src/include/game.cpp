@@ -27,10 +27,15 @@ Game::Game() {
     { 0xFF, 0x24, 0x8D, 0x44, 0xB2, 0x49, 0X00, 0xB8, 0xF4, 0x01, 0x00, 0x00 }, // jmp dword ptr [ecx*4+BASE+9B244] | mov eax,1F4
     { NOP, NOP, NOP, NOP, NOP, NOP, NOP, 0xB8, 0x00, 0x00, 0x00, 0x00 }); // nop (x7) | mov eax,0
 
+  this->cooldownHook.Initialize(0x958C5, 2,
+  { 0x7E, 0x14 }, // jle 0x14
+  { NOP, NOP }); // nop (x2)
+
   hooks.push_back(&(this->coinCapAddHook));
   hooks.push_back(&(this->coinCapSubtractHook));
   hooks.push_back(&(this->shopCapHook));
   hooks.push_back(&(this->shopItemCostHook));
+  hooks.push_back(&(this->cooldownHook));
 }
 
 /**

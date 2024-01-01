@@ -10,12 +10,12 @@ namespace hacks {
   // TODO All plants free
   // TODO Let sun be set to a specific value
   // TODO Kill all zombies
-  // TODO Remove plant cooldown
   // TODO Make plants invincible
 
   void freeShopItems(bool hackEnabled);
   void disableShopCap(bool hackEnabled);
   void disableCoinsCap(bool hackEnabled);
+  void disablePlantCooldown(bool hackEnabled);
 
   void setCoins(std::int32_t coins);
   void setChocolate(std::int32_t chocolate);

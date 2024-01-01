@@ -22,6 +22,15 @@ void hacks::disableCoinsCap(bool hackEnabled) {
 }
 
 /**
+ * \brief Disables plant cooldown.
+ *
+ * \param hackEnabled Enables/disables the hack.
+ */
+void hacks::disablePlantCooldown(bool hackEnabled) {
+  global::game.cooldownHook.setHook(hackEnabled);
+}
+
+/**
  * \brief Disables the cap of 20 for fertilizer and bug spray.
  *
  * \param hackEnabled Enables/disables the hack.
