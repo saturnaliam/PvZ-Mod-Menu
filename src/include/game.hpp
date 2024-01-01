@@ -21,6 +21,7 @@ class Game {
     Hook coinCapAddHook; // Caps the coins, but only when coins are added.
     Hook coinCapSubtractHook; // Caps the coins, but only when coins are subtracted.
     Hook shopCapHook; // Caps the fertilizer and bug spray at 20.
+    Hook shopItemCostHook; // Sets every shop item to free.
 
     std::intptr_t baseAddress;
     std::int32_t* coinAddress;

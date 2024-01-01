@@ -11,13 +11,26 @@ Game::Game() {
   this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
   this->fertilizerAddress = this->followPointerPath(this->fertilizerOffsets);
 
-  this->coinCapAddHook.Initialize(0x34798, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
-  this->coinCapSubtractHook.Initialize(0x9B635, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
-  this->shopCapHook.Initialize(0x99624, 6, { 0x83, 0xFA, 0x0F, 0x0F, 0x9F, 0xC0 }, { 0x83, 0xFA, 0x00, 0x0F, 0x9C, 0xC0 });
+  this->coinCapAddHook.Initialize(0x34798, 2,
+    { 0x7E, 0x09 }, // jle 0x09
+    { 0xEB, 0x09 }); // jmp 0x09
+
+  this->coinCapSubtractHook.Initialize(0x9B635, 2,
+    { 0x7E, 0x09 }, // jle 0x09
+    { 0xEB, 0x09 }); // jle 0x09
+
+  this->shopCapHook.Initialize(0x99624, 6,
+    { 0x83, 0xFA, 0x0F, 0x0F, 0x9F, 0xC0 }, // setg al
+    { 0x90, 0x90, 0x90, 0xB0, 0x00, 0x90 }); // mov al,00 | nop
+
+  this->shopItemCostHook.Initialize(0x9B1CA, 12,
+    { 0xFF, 0x24, 0x8D, 0x44, 0xB2, 0x49, 0X00, 0xB8, 0xF4, 0x01, 0x00, 0x00 }, // jmp dword ptr [ecx*4+BASE+9B244] | mov eax,1F4
+    { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xB8, 0x00, 0x00, 0x00, 0x00 }); // nop (x7) | mov eax,0
 
   hooks.push_back(&(this->coinCapAddHook));
   hooks.push_back(&(this->coinCapSubtractHook));
-  hooks.push_back(&(this->shopCapHook));
+  //hooks.push_back(&(this->shopCapHook));
+  //hooks.push_back(&(this->shopItemCostHook));
 }
 
 /**
@@ -25,7 +38,7 @@ Game::Game() {
  *
  */
 Game::~Game() {
-  for (int i = 0; i < this->hooks.size(); i++) {
+  for (size_t i = 0; i < this->hooks.size(); i++) {
     this->hooks[i]->~Hook();
   }
 }

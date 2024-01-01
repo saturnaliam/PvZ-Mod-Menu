@@ -45,7 +45,4 @@ void Hook::setHook(bool hooked) {
  */
 Hook::~Hook() {
   this->setHook(false);
-
-  DWORD_PTR oldProtect; // Function requires oldProtect, even if it's never used.
-  VirtualProtect((void*)this->hookLocation, this->bytes, this->oldProtect, &oldProtect);
 }

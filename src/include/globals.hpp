@@ -9,6 +9,8 @@
 
 #define MAX_COINS 999990
 
+#define NOP 0x90
+
 namespace global {
   inline bool coinCapHackEnabled = false;
   inline bool shopCapHackEnabled = false;

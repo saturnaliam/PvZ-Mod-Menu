@@ -8,7 +8,6 @@ namespace hacks {
   // TODO Infinite chocolate
   // TODO Infinite bug spray
   // TODO Infinite fertilizer
-  // TODO Remove fertilizer / bug spray cap
   // TODO All plants free
   // TODO Let sun be set to a specific value
   // TODO Kill all zombies
