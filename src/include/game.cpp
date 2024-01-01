@@ -13,6 +13,11 @@ Game::Game() {
 
   this->coinCapAddHook.Initialize(0x34798, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
   this->coinCapSubtractHook.Initialize(0x9B635, 2, { 0x7E, 0x09 }, { 0xEB, 0x09 });
+  this->shopCapHook.Initialize(0x99624, 6, { 0x83, 0xFA, 0x0F, 0x0F, 0x9F, 0xC0 }, { 0x83, 0xFA, 0x00, 0x0F, 0x9C, 0xC0 });
+
+  hooks.push_back(&(this->coinCapAddHook));
+  hooks.push_back(&(this->coinCapSubtractHook));
+  hooks.push_back(&(this->shopCapHook));
 }
 
 /**
@@ -20,7 +25,9 @@ Game::Game() {
  *
  */
 Game::~Game() {
-  this->coinCapAddHook.~Hook();
+  for (int i = 0; i < this->hooks.size(); i++) {
+    this->hooks[i]->~Hook();
+  }
 }
 
 /**
