@@ -23,6 +23,7 @@ class Game {
     Hook shopCapHook; // Caps the fertilizer and bug spray at 20.
     Hook shopItemCostHook; // Sets every shop item to free.
     Hook cooldownHook; // Disables plant cooldown.
+    Hook plantCostHook; // Makes plants free.
 
     std::intptr_t baseAddress;
     std::int32_t* coinAddress;

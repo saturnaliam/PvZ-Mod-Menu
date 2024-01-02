@@ -16,6 +16,7 @@ namespace global {
   inline bool shopCapHackEnabled = false;
   inline bool freeShopHackEnabled = false;
   inline bool cooldownHackEnabled = false;
+  inline bool freePlantsHackEnabled = false;
 
   inline Game game;
 }

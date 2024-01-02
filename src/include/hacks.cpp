@@ -74,3 +74,12 @@ void hacks::setBugSpray(std::int32_t bugSpray) {
 void hacks::setFertilizer(std::int32_t fertilizer) {
   *global::game.fertilizerAddress = (fertilizer + 1000);
 }
+
+/**
+ * \brief Makes every plant free.
+ *
+ * \param hackEnabled Enables/disables the hack.
+ */
+void hacks::freePlants(bool hackEnabled) {
+  global::game.plantCostHook.setHook(hackEnabled);
+}

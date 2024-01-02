@@ -206,6 +206,7 @@ void gui::Render() noexcept {
   ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
   ImGui::Checkbox("Free shop items", &global::freeShopHackEnabled);
   ImGui::Checkbox("Disable plant cooldown", &global::cooldownHackEnabled);
+  ImGui::Checkbox("Free plants", &global::freePlantsHackEnabled);
 
   hacks::setCoins(coins);
   hacks::setBugSpray(bugSpray);
@@ -215,6 +216,7 @@ void gui::Render() noexcept {
   hacks::disableShopCap(global::shopCapHackEnabled);
   hacks::freeShopItems(global::freeShopHackEnabled);
   hacks::disablePlantCooldown(global::cooldownHackEnabled);
+  hacks::freePlants(global::freePlantsHackEnabled);
 
   ImGui::End();
 }
