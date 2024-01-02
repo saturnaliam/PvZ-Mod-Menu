@@ -18,7 +18,7 @@ void hacks::disableCoinsCap(bool hackEnabled) {
   global::game.coinCapAddHook.setHook(hackEnabled);
   global::game.coinCapSubtractHook.setHook(hackEnabled);
 
-  if (!hackEnabled) hacks::setCoins(MAX_COINS);
+  if (!hackEnabled && *global::game.coinAddress > (MAX_COINS/10)) hacks::setCoins(MAX_COINS);
 }
 
 /**
