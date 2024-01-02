@@ -4,8 +4,8 @@
 
 namespace hacks {
   // TODO Kill all zombies
-  // TODO Make plants invincible
 
+  void plantsInvincibility(bool hackEnabled);
   void freePlants(bool hackEnabled);
   void freeShopItems(bool hackEnabled);
   void disableShopCap(bool hackEnabled);

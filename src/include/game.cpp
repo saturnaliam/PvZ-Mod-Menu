@@ -5,7 +5,11 @@
  *
  */
 Game::Game() {
+  // TODO generalize pointer code to work with stuff that doesnt start at the base address.
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
+
+  this->sunAddress = reinterpret_cast<std::int32_t*>(*reinterpret_cast<std::int32_t*>(*reinterpret_cast<std::int32_t*>(0x731CDC) + 0x868) + 0x5578);
+
   this->coinAddress = this->followPointerPath(this->coinOffsets);
   this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);
   this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
@@ -35,12 +39,17 @@ Game::Game() {
     { 0x8B, 0x04, 0x85, 0x88, 0x69, 0x72, 0x00 }, // mov eax,dword ptr ds:[eax*4+0x726988]
     { 0xB8, 0x00, 0x00, 0x00, 0x00, NOP, NOP }); // mov eax,0x0 | nop (x2)
 
+  this->plantInvincibilityHook.Initialize(0x1447A0, 4,
+    { 0x83, 0x46, 0x40, 0xFC }, // add dword ptr [esi+0x40],-04
+    { 0x83, 0x46, 0x40, 0x00 }); // add dword ptr [esi+0x40],00
+
   hooks.push_back(&(this->coinCapAddHook));
   hooks.push_back(&(this->coinCapSubtractHook));
   hooks.push_back(&(this->shopCapHook));
   hooks.push_back(&(this->shopItemCostHook));
   hooks.push_back(&(this->cooldownHook));
   hooks.push_back(&(this->plantCostHook));
+  hooks.push_back(&(this->plantInvincibilityHook));
 }
 
 /**
@@ -60,7 +69,18 @@ Game::~Game() {
  * \return The pointer at the end of the path.
  */
 std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
-  std::intptr_t temp = this->baseAddress;
+  return this->followPointerPath(offsets, this->baseAddress);
+}
+
+/**
+ * \brief Follows a pointer path starting from an arbitrary base address.
+ *
+ * \param offsets The pointer offsets.
+ * \param initial The initial address to start from.
+ * \return The pointer at the end of the path.
+ */
+std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial) {
+  std::intptr_t temp = initial;
 
   // rework this pls
   for (size_t i = 0; i < offsets.size() - 1; i++) {

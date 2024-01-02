@@ -83,3 +83,7 @@ void hacks::setFertilizer(std::int32_t fertilizer) {
 void hacks::freePlants(bool hackEnabled) {
   global::game.plantCostHook.setHook(hackEnabled);
 }
+
+void hacks::plantsInvincibility(bool hackEnabled) {
+  global::game.plantInvincibilityHook.setHook(hackEnabled);
+}

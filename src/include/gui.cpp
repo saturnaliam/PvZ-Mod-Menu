@@ -197,26 +197,37 @@ void gui::Render() noexcept {
   std::int32_t bugSpray = *global::game.bugSprayAddress - 1000;
   std::int32_t chocolate = *global::game.chocolateAddress - 1000;
   std::int32_t fertilizer = *global::game.fertilizerAddress - 1000;
+  std::int32_t sun = *global::game.sunAddress;
+
+  static bool coinCap = false;
+  static bool shopCap = false;
+  static bool freeShop = false;
+  static bool freePlants = false;
+  static bool invinciblePlants = false;
+  static bool cooldown = false;
 
   ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
   ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");
   ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
   ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &fertilizer, NULL, NULL, "%d");
-  ImGui::Checkbox("Disable coins cap", &global::coinCapHackEnabled);
-  ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
-  ImGui::Checkbox("Free shop items", &global::freeShopHackEnabled);
-  ImGui::Checkbox("Disable plant cooldown", &global::cooldownHackEnabled);
-  ImGui::Checkbox("Free plants", &global::freePlantsHackEnabled);
+  ImGui::InputScalar("Sun", ImGuiDataType_S32, &sun, NULL, NULL, "%d");
+  ImGui::Checkbox("Disable coins cap", &coinCap);
+  ImGui::Checkbox("Disable fertilizer / bug spray cap", &shopCap);
+  ImGui::Checkbox("Free shop items", &freeShop);
+  ImGui::Checkbox("Disable plant cooldown", &cooldown);
+  ImGui::Checkbox("Free plants", &freePlants);
+  ImGui::Checkbox("Invincible plants", &invinciblePlants);
 
   hacks::setCoins(coins);
   hacks::setBugSpray(bugSpray);
   hacks::setChocolate(chocolate);
   hacks::setFertilizer(fertilizer);
-  hacks::disableCoinsCap(global::coinCapHackEnabled);
-  hacks::disableShopCap(global::shopCapHackEnabled);
-  hacks::freeShopItems(global::freeShopHackEnabled);
-  hacks::disablePlantCooldown(global::cooldownHackEnabled);
-  hacks::freePlants(global::freePlantsHackEnabled);
+  hacks::disableCoinsCap(coinCap);
+  hacks::disableShopCap(shopCap);
+  hacks::freeShopItems(freeShop);
+  hacks::disablePlantCooldown(cooldown);
+  hacks::freePlants(freePlants);
+  hacks::plantsInvincibility(invinciblePlants);
 
   ImGui::End();
 }
