@@ -33,7 +33,7 @@ Game::Game() {
 
   this->plantCostHook.Initialize(0x6E041, 7,
     { 0x8B, 0x04, 0x85, 0x88, 0x69, 0x72, 0x00 }, // mov eax,dword ptr ds:[eax*4+0x726988]
-    { 0x8B, 0x00, 0x00, 0x00, 0x00, NOP, NOP }); // mov eax,0x0 | nop (x2)
+    { 0xB8, 0x00, 0x00, 0x00, 0x00, NOP, NOP }); // mov eax,0x0 | nop (x2)
 
   hooks.push_back(&(this->coinCapAddHook));
   hooks.push_back(&(this->coinCapSubtractHook));
