@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdint>
 #include <windows.h>
+#include "utils.hpp"
 
 class Hook {
   private:

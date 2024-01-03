@@ -2,18 +2,32 @@
 
 #include <cstdint>
 #include <vector>
+#include "utils.hpp"
 #include "hook.hpp"
+#include "pointer_path.hpp"
+
+typedef std::vector<std::ptrdiff_t> PointerOffsets;
+
+namespace offsets {
+  inline PointerOffsets coinOffsets = { 0xEFFC4, 0x58, 0x24, 0xC, 0x10, 0x3C, 0x84 };
+  inline PointerOffsets fertilizerOffsets = { 0x13A90C, 0x548, 0x274, 0x18, 0x0, 0x0, 0x4, 0x254 };
+  inline PointerOffsets bugSprayOffsets = { 0x13A90C, 0x54C, 0x110, 0xC, 0x258 };
+  inline PointerOffsets chocolateOffsets = { 0x13A90C, 0x548, 0x25C, 0x28, 0x70, 0x8, 0x4, 0x284 };
+  inline PointerOffsets sunOffsets = { 0x868, 0x5578 };
+}
 
 class Game {
   private:
-    std::int32_t* followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial);
-    std::int32_t* followPointerPath(std::vector<std::ptrdiff_t> offsets);
+    void initializeHooks();
+    void initializePointerPaths();
+    void initializePointers();
 
     std::vector<Hook*> hooks;
-    std::vector<std::ptrdiff_t> coinOffsets = { 0xEFFC4, 0x58, 0x24, 0xC, 0x10, 0x3C, 0x84 };
-    std::vector<std::ptrdiff_t> fertilizerOffsets = { 0x13A90C, 0x548, 0x274, 0x18, 0x0, 0x0, 0x4, 0x254 };
-    std::vector<std::ptrdiff_t> bugSprayOffsets = { 0x13A90C, 0x54C, 0x110, 0xC, 0x258 };
-    std::vector<std::ptrdiff_t> chocolateOffsets = { 0x13A90C, 0x548, 0x25C, 0x28, 0x70, 0x8, 0x4, 0x284 };
+    PointerPath coinPath;
+    PointerPath fertilizerPath;
+    PointerPath bugSprayPath;
+    PointerPath chocolatePath;
+    PointerPath sunPath;
 
   public:
     Game();
