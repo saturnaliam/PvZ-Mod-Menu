@@ -60,7 +60,7 @@ Game::~Game() {
  * \param offsets The pointer offsets.
  * \return The pointer at the end of the path.
  */
-std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
+s32* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
   return this->followPointerPath(offsets, this->baseAddress);
 }
 
@@ -71,7 +71,7 @@ std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
  * \param initial The initial address to start from.
  * \return The pointer at the end of the path.
  */
-std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial) {
+s32* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial) {
   std::intptr_t temp = initial;
 
   // rework this pls
@@ -79,5 +79,5 @@ std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::
     temp = *reinterpret_cast<std::intptr_t*>(temp + offsets[i]);
   }
 
-  return (reinterpret_cast<std::int32_t*>(temp + offsets.back()));
+  return (reinterpret_cast<s32*>(temp + offsets.back()));
 }

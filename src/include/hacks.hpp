@@ -1,5 +1,6 @@
 #pragma once
 
+#include "globals.hpp"
 #include "utils.hpp"
 
 namespace hacks {
@@ -12,8 +13,8 @@ namespace hacks {
   void disableCoinsCap(bool hackEnabled);
   void disablePlantCooldown(bool hackEnabled);
 
-  void setCoins(std::int32_t coins);
-  void setChocolate(std::int32_t chocolate);
-  void setBugSpray(std::int32_t bugSpray);
-  void setFertilizer(std::int32_t fertilizer);
+  void setCoins(s32 coins);
+  void setChocolate(s32 chocolate);
+  void setBugSpray(s32 bugSpray);
+  void setFertilizer(s32 fertilizer);
 }

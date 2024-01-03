@@ -1,31 +1,20 @@
 #pragma once
 
-#include <cstdint>
-#include <vector>
 #include "utils.hpp"
 #include "hook.hpp"
-#include "pointer_path.hpp"
 
-typedef std::vector<std::ptrdiff_t> PointerOffsets;
-
-namespace offsets {
-  inline PointerOffsets coinOffsets = { 0xEFFC4, 0x58, 0x24, 0xC, 0x10, 0x3C, 0x84 };
-  inline PointerOffsets fertilizerOffsets = { 0x13A90C, 0x548, 0x274, 0x18, 0x0, 0x0, 0x4, 0x254 };
-  inline PointerOffsets bugSprayOffsets = { 0x13A90C, 0x54C, 0x110, 0xC, 0x258 };
-  inline PointerOffsets chocolateOffsets = { 0x13A90C, 0x548, 0x25C, 0x28, 0x70, 0x8, 0x4, 0x284 };
-  inline PointerOffsets sunOffsets = { 0x868, 0x5578 };
-}
 
 class Game {
   private:
-    std::int32_t* followPointerPath(std::vector<std::ptrdiff_t> offsets);
+    s32* followPointerPath(std::vector<std::ptrdiff_t> offsets);
+    s32* followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t base);
 
     std::vector<Hook*> hooks;
-    PointerPath coinPath;
-    PointerPath fertilizerPath;
-    PointerPath bugSprayPath;
-    PointerPath chocolatePath;
-    PointerPath sunPath;
+    PointerOffsets coinOffsets = { 0xEFFC4, 0x58, 0x24, 0xC, 0x10, 0x3C, 0x84 };
+    PointerOffsets fertilizerOffsets = { 0x13A90C, 0x548, 0x274, 0x18, 0x0, 0x0, 0x4, 0x254 };
+    PointerOffsets bugSprayOffsets = { 0x13A90C, 0x54C, 0x110, 0xC, 0x258 };
+    PointerOffsets chocolateOffsets = { 0x13A90C, 0x548, 0x25C, 0x28, 0x70, 0x8, 0x4, 0x284 };
+    PointerOffsets sunOffsets = { 0x868, 0x5578 };
 
   public:
     Game();
@@ -39,8 +28,8 @@ class Game {
     Hook plantCostHook; // Makes plants free.
 
     std::intptr_t baseAddress;
-    std::int32_t* coinAddress;
-    std::int32_t* chocolateAddress;
-    std::int32_t* fertilizerAddress;
-    std::int32_t* bugSprayAddress;
+    s32* coinAddress;
+    s32* chocolateAddress;
+    s32* fertilizerAddress;
+    s32* bugSprayAddress;
 };

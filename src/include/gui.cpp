@@ -193,10 +193,10 @@ void gui::Render() noexcept {
   ImGui::SetNextWindowSize({WIDTH, HEIGHT});
   ImGui::Begin("PvZ Mods", &exit, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-  std::int32_t coins = *global::game.coinAddress * 10;
-  std::int32_t bugSpray = *global::game.bugSprayAddress - 1000;
-  std::int32_t chocolate = *global::game.chocolateAddress - 1000;
-  std::int32_t fertilizer = *global::game.fertilizerAddress - 1000;
+  s32 coins = *global::game.coinAddress * 10;
+  s32 bugSpray = *global::game.bugSprayAddress - 1000;
+  s32 chocolate = *global::game.chocolateAddress - 1000;
+  s32 fertilizer = *global::game.fertilizerAddress - 1000;
 
   ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
   ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");

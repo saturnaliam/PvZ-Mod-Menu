@@ -1,4 +1,5 @@
 #include "hook.hpp"
+#include "globals.hpp"
 
 /**
  * \brief Initializing the hook.
@@ -8,10 +9,10 @@
  * \param oldOpcodes The opcodes that are at the location by default.
  * \param newOpcodes The opcodes to write.
  */
-void Hook::Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vector<std::uint8_t> oldOpcodes, std::vector<std::uint8_t> newOpcodes) {
+void Hook::Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vector<u8> oldOpcodes, std::vector<u8> newOpcodes) {
   this->oldProtect = NULL;
 
-  this->hookLocation = reinterpret_cast<std::uint8_t*>(global::game.baseAddress + hookOffset);
+  this->hookLocation = reinterpret_cast<u8*>(global::game.baseAddress + hookOffset);
   this->oldOpcodes = oldOpcodes;
   this->newOpcodes = newOpcodes;
   this->bytes = bytes;
@@ -25,7 +26,7 @@ void Hook::Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vecto
  * \param hooked If true, enables the hook, disabled it if false.
  */
 void Hook::setHook(bool hooked) {
-  std::vector<std::uint8_t> opcodes;
+  std::vector<u8> opcodes;
 
   if (hooked) {
     opcodes = this->newOpcodes;
