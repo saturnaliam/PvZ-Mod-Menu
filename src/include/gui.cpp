@@ -198,10 +198,15 @@ void gui::Render() noexcept {
   s32 chocolate = *global::game.chocolateAddress - 1000;
   s32 fertilizer = *global::game.fertilizerAddress - 1000;
 
+  s32 sun = -1;
+
+  if (global::game.sunAddress != nullptr) sun = *global::game.sunAddress;
+
   ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
   ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");
   ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
   ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &fertilizer, NULL, NULL, "%d");
+  ImGui::InputScalar("Sun", ImGuiDataType_S32, &sun, NULL, NULL, "%d");
   ImGui::Checkbox("Disable coins cap", &global::coinCapHackEnabled);
   ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
   ImGui::Checkbox("Free shop items", &global::freeShopHackEnabled);

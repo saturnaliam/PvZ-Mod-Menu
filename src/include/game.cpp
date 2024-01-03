@@ -12,6 +12,8 @@ Game::Game() {
   this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
   this->fertilizerAddress = this->followPointerPath(this->fertilizerOffsets);
 
+  this->getSunAddress();
+
   this->coinCapAddHook.Initialize(0x34798, 2,
     { 0x7E, 0x09 }, // jle 0x09
     { 0xEB, 0x09 }); // jmp 0x09
@@ -80,4 +82,28 @@ s32* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t 
   }
 
   return (reinterpret_cast<s32*>(temp + offsets.back()));
+}
+
+/**
+ * \brief Gets the sun address, featuring some error checking.
+ *
+ */
+void Game::getSunAddress() {
+  s32 levelAddress = this->getLevelAddress();
+
+  if (levelAddress == 0) {
+    this->sunAddress = nullptr;
+    return;
+  }
+
+  this->sunAddress = reinterpret_cast<s32*>(levelAddress + 0x5578);
+}
+
+/**
+ * \brief Returns the level address.
+ *
+ * \return The level address.
+ */
+s32 Game::getLevelAddress() {
+  return (*reinterpret_cast<s32*>(*reinterpret_cast<s32*>(0x731CDC) + 0x868));
 }
