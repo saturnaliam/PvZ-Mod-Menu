@@ -7,8 +7,10 @@
  */
 Game::Game() {
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
-
-  this->initializePointers();
+  this->coinAddress = this->followPointerPath(this->coinOffsets);
+  this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);
+  this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
+  this->fertilizerAddress = this->followPointerPath(this->fertilizerOffsets);
 
   this->coinCapAddHook.Initialize(0x34798, 2,
     { 0x7E, 0x09 }, // jle 0x09
@@ -53,30 +55,29 @@ Game::~Game() {
 }
 
 /**
- * \brief Initializes pointer paths.
+ * \brief Follows a pointer path starting from the base address.
  *
+ * \param offsets The pointer offsets.
+ * \return The pointer at the end of the path.
  */
-void Game::initializePointerPaths() {
-  const std::intptr_t base = this->baseAddress;
-
-  this->bugSprayPath.initialize(offsets::bugSprayOffsets, base);
-  this->chocolatePath.initialize(offsets::chocolateOffsets, base);
-  this->coinPath.initialize(offsets::coinOffsets, base);
-  this->fertilizerPath.initialize(offsets::fertilizerOffsets, base);
-
-  this->sunPath.initialize(offsets::sunOffsets, 0x731CDC);
+std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
+  return this->followPointerPath(offsets, this->baseAddress);
 }
 
 /**
- * \brief Initializes the pointers for game values.
+ * \brief Follows a pointer path starting from an arbitrary base address.
  *
+ * \param offsets The pointer offsets.
+ * \param initial The initial address to start from.
+ * \return The pointer at the end of the path.
  */
-void Game::initializePointers() {
-  this->initializePointerPaths();
+std::int32_t* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial) {
+  std::intptr_t temp = initial;
 
-  this->bugSprayAddress = this->bugSprayPath.followPath();
-  this->chocolateAddress = this->chocolatePath.followPath();
-  this->coinAddress = this->coinPath.followPath();
-  this->fertilizerAddress = this->fertilizerPath.followPath();
-  this->sunAddress = this->sunPath.followPath();
+  // rework this pls
+  for (size_t i = 0; i < offsets.size() - 1; i++) {
+    temp = *reinterpret_cast<std::intptr_t*>(temp + offsets[i]);
+  }
+
+  return (reinterpret_cast<std::int32_t*>(temp + offsets.back()));
 }

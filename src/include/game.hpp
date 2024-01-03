@@ -18,9 +18,7 @@ namespace offsets {
 
 class Game {
   private:
-    void initializeHooks();
-    void initializePointerPaths();
-    void initializePointers();
+    std::int32_t* followPointerPath(std::vector<std::ptrdiff_t> offsets);
 
     std::vector<Hook*> hooks;
     PointerPath coinPath;
@@ -39,10 +37,8 @@ class Game {
     Hook shopItemCostHook; // Sets every shop item to free.
     Hook cooldownHook; // Disables plant cooldown.
     Hook plantCostHook; // Makes plants free.
-    Hook plantInvincibilityHook; // guess what this does
 
     std::intptr_t baseAddress;
-    std::int32_t* sunAddress;
     std::int32_t* coinAddress;
     std::int32_t* chocolateAddress;
     std::int32_t* fertilizerAddress;
