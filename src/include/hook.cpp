@@ -1,5 +1,4 @@
 #include "hook.hpp"
-#include "globals.hpp"
 
 /**
  * \brief Initializing the hook.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "globals.hpp"
+#include "utils.hpp"
 
 namespace hacks {
   // TODO Kill all zombies
