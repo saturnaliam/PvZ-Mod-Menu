@@ -108,16 +108,4 @@ void hacks::Update(HackSettings& hackSettings) {
   if (hackSettings.coins != -1) hacks::setCoins(hackSettings.coins);
   if (hackSettings.fertilizer != -1) hacks::setFertilizer(hackSettings.fertilizer);
   if (hackSettings.sun != -1) hacks::setSun(hackSettings.sun);
-
-  hackSettings.bugSpray = *global::game.bugSprayAddress - 1000;
-  hackSettings.chocolate = *global::game.chocolateAddress - 1000;
-  hackSettings.coins = *global::game.coinAddress * 10;
-  hackSettings.fertilizer = *global::game.fertilizerAddress - 1000;
-
-  // extra processing to make sure that the sun address actually exists
-  if (global::game.sunAddress != nullptr) {
-    hackSettings.sun = *global::game.sunAddress;
-  } else {
-    hackSettings.sun = -1;
-  }
 }

@@ -196,6 +196,18 @@ void gui::Render() noexcept {
 
   static HackSettings hackSettings;
 
+  hackSettings.bugSpray = *global::game.bugSprayAddress - 1000;
+  hackSettings.chocolate = *global::game.chocolateAddress - 1000;
+  hackSettings.coins = *global::game.coinAddress * 10;
+  hackSettings.fertilizer = *global::game.fertilizerAddress - 1000;
+
+  // extra processing to make sure that the sun address actually exists
+  if (global::game.sunAddress != nullptr) {
+    hackSettings.sun = *global::game.sunAddress;
+  } else {
+    hackSettings.sun = -1;
+  }
+
   ImGui::InputScalar("Coins", ImGuiDataType_S32, &hackSettings.coins, NULL, NULL, "%d");
   ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &hackSettings.bugSpray, NULL, NULL, "%d");
   ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &hackSettings.chocolate, NULL, NULL, "%d");
