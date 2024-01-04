@@ -7,7 +7,7 @@ namespace gui {
   constexpr int WIDTH = 600;
   constexpr int HEIGHT = 400;
 
-  inline bool exit = true;
+  inline bool running = true;
 
   inline HWND window = nullptr;
   inline WNDCLASSEXA windowClass = { };

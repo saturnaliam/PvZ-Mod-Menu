@@ -4,13 +4,21 @@
 #include <windows.h>
 #include <vector>
 #include <cstdint>
-
 #include "game.hpp"
 
-#define MAX_COINS 999990
-
-#define NOP 0x90
-
 namespace global {
+  inline bool removeCoinCap = false;
+  inline bool freePlants = false;
+  inline bool freeShopItems = false;
+  inline bool removePlantCooldown = false;
+  inline bool removeItemsCap = false;
+  inline bool invinciblePlants = false;
+
+  inline s32 pSun = -1;
+  inline s32 pCoins = -1;
+  inline s32 pFertilizer = -1;
+  inline s32 pBugSpray = -1;
+  inline s32 pChocolate = -1;
+
   inline Game game;
 }

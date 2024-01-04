@@ -1,19 +1,23 @@
 #pragma once
 
 #include "utils.hpp"
+#include "gui.hpp"
+#include <thread>
 
 namespace hacks {
   // TODO Kill all zombies
+  // TODO Make plants invincible
 
-  void plantsInvincibility(bool hackEnabled);
   void freePlants(bool hackEnabled);
   void freeShopItems(bool hackEnabled);
   void disableShopCap(bool hackEnabled);
   void disableCoinsCap(bool hackEnabled);
   void disablePlantCooldown(bool hackEnabled);
 
-  void setCoins(std::int32_t coins);
-  void setChocolate(std::int32_t chocolate);
-  void setBugSpray(std::int32_t bugSpray);
-  void setFertilizer(std::int32_t fertilizer);
+  void setCoins(s32 coins);
+  void setChocolate(s32 chocolate);
+  void setBugSpray(s32 bugSpray);
+  void setFertilizer(s32 fertilizer);
+
+  void Update();
 }

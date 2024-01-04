@@ -6,8 +6,12 @@
  */
 Game::Game() {
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
+  this->coinAddress = this->followPointerPath(this->coinOffsets);
+  this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);
+  this->chocolateAddress = this->followPointerPath(this->chocolateOffsets);
+  this->fertilizerAddress = this->followPointerPath(this->fertilizerOffsets);
 
-  this->initializePointers();
+  this->getSunAddress();
 
   this->coinCapAddHook.Initialize(0x34798, 2,
     { 0x7E, 0x09 }, // jle 0x09
@@ -33,17 +37,12 @@ Game::Game() {
     { 0x8B, 0x04, 0x85, 0x88, 0x69, 0x72, 0x00 }, // mov eax,dword ptr ds:[eax*4+0x726988]
     { 0xB8, 0x00, 0x00, 0x00, 0x00, NOP, NOP }); // mov eax,0x0 | nop (x2)
 
-  this->plantInvincibilityHook.Initialize(0x1447A0, 4,
-    { 0x83, 0x46, 0x40, 0xFC }, // add dword ptr [esi+0x40],-04
-    { 0x83, 0x46, 0x40, 0x00 }); // add dword ptr [esi+0x40],00
-
   hooks.push_back(&(this->coinCapAddHook));
   hooks.push_back(&(this->coinCapSubtractHook));
   hooks.push_back(&(this->shopCapHook));
   hooks.push_back(&(this->shopItemCostHook));
   hooks.push_back(&(this->cooldownHook));
   hooks.push_back(&(this->plantCostHook));
-  hooks.push_back(&(this->plantInvincibilityHook));
 }
 
 /**
@@ -57,30 +56,53 @@ Game::~Game() {
 }
 
 /**
- * \brief Initializes pointer paths.
+ * \brief Follows a pointer path starting from the base address.
  *
+ * \param offsets The pointer offsets.
+ * \return The pointer at the end of the path.
  */
-void Game::initializePointerPaths() {
-  const std::intptr_t base = this->baseAddress;
-
-  this->bugSprayPath.initialize(offsets::bugSprayOffsets, base);
-  this->chocolatePath.initialize(offsets::chocolateOffsets, base);
-  this->coinPath.initialize(offsets::coinOffsets, base);
-  this->fertilizerPath.initialize(offsets::fertilizerOffsets, base);
-
-  this->sunPath.initialize(offsets::sunOffsets, 0x731CDC);
+s32* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets) {
+  return this->followPointerPath(offsets, this->baseAddress);
 }
 
 /**
- * \brief Initializes the pointers for game values.
+ * \brief Follows a pointer path starting from an arbitrary base address.
+ *
+ * \param offsets The pointer offsets.
+ * \param initial The initial address to start from.
+ * \return The pointer at the end of the path.
+ */
+s32* Game::followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t initial) {
+  std::intptr_t temp = initial;
+
+  // rework this pls
+  for (size_t i = 0; i < offsets.size() - 1; i++) {
+    temp = *reinterpret_cast<std::intptr_t*>(temp + offsets[i]);
+  }
+
+  return (reinterpret_cast<s32*>(temp + offsets.back()));
+}
+
+/**
+ * \brief Gets the sun address, featuring some error checking.
  *
  */
-void Game::initializePointers() {
-  this->initializePointerPaths();
+void Game::getSunAddress() {
+  s32 levelAddress = this->getLevelAddress();
 
-  this->bugSprayAddress = this->bugSprayPath.followPath();
-  this->chocolateAddress = this->chocolatePath.followPath();
-  this->coinAddress = this->coinPath.followPath();
-  this->fertilizerAddress = this->fertilizerPath.followPath();
-  this->sunAddress = this->sunPath.followPath();
+  if (levelAddress == 0) {
+    this->sunAddress = nullptr;
+    return;
+  }
+
+  this->sunAddress = reinterpret_cast<s32*>(levelAddress + 0x5578);
+}
+
+/**
+ * \brief Returns the level address.
+ *
+ * \return The level address.
+ */
+s32 Game::getLevelAddress() {
+  return (*reinterpret_cast<s32*>(*reinterpret_cast<s32*>(0x731CDC) + 0x868));
 }

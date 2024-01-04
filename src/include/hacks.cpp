@@ -1,4 +1,5 @@
 #include "hacks.hpp"
+#include "globals.hpp"
 
 /**
  * \brief Makes every shop item free.
@@ -44,7 +45,7 @@ void hacks::disableShopCap(bool hackEnabled) {
  *
  * \param coins The value to set the coins to.
  */
-void hacks::setCoins(std::int32_t coins) {
+void hacks::setCoins(s32 coins) {
   *global::game.coinAddress = (coins / 10);
 }
 
@@ -53,7 +54,7 @@ void hacks::setCoins(std::int32_t coins) {
  *
  * \param chocolate The value to set the amount of chocolate to.
  */
-void hacks::setChocolate(std::int32_t chocolate) {
+void hacks::setChocolate(s32 chocolate) {
   *global::game.chocolateAddress = (chocolate + 1000);
 }
 
@@ -62,7 +63,7 @@ void hacks::setChocolate(std::int32_t chocolate) {
  *
  * \param bugSpray The value to set the amount of bug spray to.
  */
-void hacks::setBugSpray(std::int32_t bugSpray) {
+void hacks::setBugSpray(s32 bugSpray) {
   *global::game.bugSprayAddress = (bugSpray + 1000);
 }
 
@@ -71,7 +72,7 @@ void hacks::setBugSpray(std::int32_t bugSpray) {
  *
  * \param fertilizer The value to set the amount of fertilizer to.
  */
-void hacks::setFertilizer(std::int32_t fertilizer) {
+void hacks::setFertilizer(s32 fertilizer) {
   *global::game.fertilizerAddress = (fertilizer + 1000);
 }
 
@@ -84,6 +85,23 @@ void hacks::freePlants(bool hackEnabled) {
   global::game.plantCostHook.setHook(hackEnabled);
 }
 
-void hacks::plantsInvincibility(bool hackEnabled) {
-  global::game.plantInvincibilityHook.setHook(hackEnabled);
+/**
+ * \brief Runs while the menu is currently up. Handles all the hacks and whatnot.
+ *
+ */
+void hacks::Update() {
+  while (gui::running) {
+
+    if (global::pBugSpray != -1) hacks::setBugSpray(global::pBugSpray);
+    if (global::pChocolate != -1) hacks::setChocolate(global::pChocolate);
+    if (global::pCoins != -1) hacks::setCoins(global::pCoins);
+    if (global::pFertilizer != -1) hacks::setFertilizer(global::pFertilizer);
+
+    global::pBugSpray = *global::game.bugSprayAddress - 1000;
+    global::pChocolate = *global::game.chocolateAddress - 1000;
+    global::pCoins = *global::game.coinAddress * 10;
+    global::pFertilizer = *global::game.fertilizerAddress - 1000;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
 }
