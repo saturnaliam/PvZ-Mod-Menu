@@ -6,12 +6,12 @@ class Hook {
   private:
     std::uint32_t bytes;
     u8* hookLocation;
-    std::vector<u8> oldOpcodes;
-    std::vector<u8> newOpcodes;
+    char* oldBytes;
+    char* newBytes;
     DWORD_PTR oldProtect;
 
   public:
-    void Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vector<u8> oldOpcodes, std::vector<u8> newOpcodes);
+    void Initialize(std::ptrdiff_t hookOffset, u32 bytes, std::string oldBytes, std::string newBytes);
     void setHook(bool hooked = true);
     ~Hook();
 };

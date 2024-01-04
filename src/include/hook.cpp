@@ -6,15 +6,15 @@
  *
  * \param hookOffset The file offset of the function.
  * \param bytes How many instructions to overwrite.
- * \param oldOpcodes The opcodes that are at the location by default.
- * \param newOpcodes The opcodes to write.
+ * \param oldBytes The opcodes that are at the location by default.
+ * \param newBytes The opcodes to write.
  */
-void Hook::Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vector<u8> oldOpcodes, std::vector<u8> newOpcodes) {
+void Hook::Initialize(std::ptrdiff_t hookOffset, u32 bytes, std::string oldBytes, std::string newBytes) {
   this->oldProtect = NULL;
 
   this->hookLocation = reinterpret_cast<u8*>(global::game.baseAddress + hookOffset);
-  this->oldOpcodes = oldOpcodes;
-  this->newOpcodes = newOpcodes;
+  this->oldBytes = const_cast<char*>(oldBytes.c_str());
+  this->newBytes = const_cast<char*>(newBytes.c_str());
   this->bytes = bytes;
 
   VirtualProtect((void*)this->hookLocation, this->bytes, PAGE_EXECUTE_READWRITE, &this->oldProtect);
@@ -26,17 +26,15 @@ void Hook::Initialize(std::ptrdiff_t hookOffset, std::uint32_t bytes, std::vecto
  * \param hooked If true, enables the hook, disabled it if false.
  */
 void Hook::setHook(bool hooked) {
-  std::vector<u8> opcodes;
+  char* opcodes;
 
   if (hooked) {
-    opcodes = this->newOpcodes;
+    opcodes = this->newBytes;
   } else {
-    opcodes = this->oldOpcodes;
+    opcodes = this->oldBytes;
   }
 
-  for (size_t i = 0; i < opcodes.size(); i++) {
-    *(this->hookLocation + i) = opcodes[i];
-  }
+  memcpy(this->hookLocation, opcodes, sizeof(opcodes));
 }
 
 /**
