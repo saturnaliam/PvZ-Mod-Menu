@@ -10,7 +10,9 @@ DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
   gui::CreateDevice();
   gui::CreateImGui();
 
-  while (gui::exit) {
+  std::thread(hacks::Update).detach();
+
+  while (gui::running) {
     gui::BeginRender();
     gui::Render();
     gui::EndRender();

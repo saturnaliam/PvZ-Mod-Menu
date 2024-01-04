@@ -1,4 +1,5 @@
 #include "hacks.hpp"
+#include "globals.hpp"
 
 /**
  * \brief Makes every shop item free.
@@ -82,4 +83,25 @@ void hacks::setFertilizer(s32 fertilizer) {
  */
 void hacks::freePlants(bool hackEnabled) {
   global::game.plantCostHook.setHook(hackEnabled);
+}
+
+/**
+ * \brief Runs while the menu is currently up. Handles all the hacks and whatnot.
+ *
+ */
+void hacks::Update() {
+  while (gui::running) {
+
+    if (global::pBugSpray != -1) hacks::setBugSpray(global::pBugSpray);
+    if (global::pChocolate != -1) hacks::setChocolate(global::pChocolate);
+    if (global::pCoins != -1) hacks::setCoins(global::pCoins);
+    if (global::pFertilizer != -1) hacks::setFertilizer(global::pFertilizer);
+
+    global::pBugSpray = *global::game.bugSprayAddress - 1000;
+    global::pChocolate = *global::game.chocolateAddress - 1000;
+    global::pCoins = *global::game.coinAddress * 10;
+    global::pFertilizer = *global::game.fertilizerAddress - 1000;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
 }

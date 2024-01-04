@@ -4,15 +4,21 @@
 #include <windows.h>
 #include <vector>
 #include <cstdint>
-
 #include "game.hpp"
 
 namespace global {
-  inline bool coinCapHackEnabled = false;
-  inline bool shopCapHackEnabled = false;
-  inline bool freeShopHackEnabled = false;
-  inline bool cooldownHackEnabled = false;
-  inline bool freePlantsHackEnabled = false;
+  inline bool removeCoinCap = false;
+  inline bool freePlants = false;
+  inline bool freeShopItems = false;
+  inline bool removePlantCooldown = false;
+  inline bool removeItemsCap = false;
+  inline bool invinciblePlants = false;
+
+  inline s32 pSun = -1;
+  inline s32 pCoins = -1;
+  inline s32 pFertilizer = -1;
+  inline s32 pBugSpray = -1;
+  inline s32 pChocolate = -1;
 
   inline Game game;
 }

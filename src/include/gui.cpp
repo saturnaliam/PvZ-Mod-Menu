@@ -6,6 +6,7 @@
 #include "../../imgui/imgui_impl_dx9.h"
 #include "../../imgui/imgui_impl_win32.h"
 #include "utils.hpp"
+#include "globals.hpp"
 #include "hacks.hpp"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT message, WPARAM wideParameter, LPARAM longParameter);
@@ -191,37 +192,19 @@ void gui::Render() noexcept {
 
   ImGui::SetNextWindowPos({0, 0});
   ImGui::SetNextWindowSize({WIDTH, HEIGHT});
-  ImGui::Begin("PvZ Mods", &exit, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+  ImGui::Begin("PvZ Mods", &running, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-  s32 coins = *global::game.coinAddress * 10;
-  s32 bugSpray = *global::game.bugSprayAddress - 1000;
-  s32 chocolate = *global::game.chocolateAddress - 1000;
-  s32 fertilizer = *global::game.fertilizerAddress - 1000;
+  ImGui::InputScalar("Coins", ImGuiDataType_S32, &global::pCoins, NULL, NULL, "%d");
+  ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &global::pBugSpray, NULL, NULL, "%d");
+  ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &global::pChocolate, NULL, NULL, "%d");
+  ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &global::pFertilizer, NULL, NULL, "%d");
+  ImGui::InputScalar("Sun", ImGuiDataType_S32, &global::pSun, NULL, NULL, "%d");
 
-  s32 sun = -1;
-
-  if (global::game.sunAddress != nullptr) sun = *global::game.sunAddress;
-
-  ImGui::InputScalar("Coins", ImGuiDataType_S32, &coins, NULL, NULL, "%d");
-  ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &bugSpray, NULL, NULL, "%d");
-  ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &chocolate, NULL, NULL, "%d");
-  ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &fertilizer, NULL, NULL, "%d");
-  ImGui::InputScalar("Sun", ImGuiDataType_S32, &sun, NULL, NULL, "%d");
-  ImGui::Checkbox("Disable coins cap", &global::coinCapHackEnabled);
-  ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::shopCapHackEnabled);
-  ImGui::Checkbox("Free shop items", &global::freeShopHackEnabled);
-  ImGui::Checkbox("Disable plant cooldown", &global::cooldownHackEnabled);
-  ImGui::Checkbox("Free plants", &global::freePlantsHackEnabled);
-
-  hacks::setCoins(coins);
-  hacks::setBugSpray(bugSpray);
-  hacks::setChocolate(chocolate);
-  hacks::setFertilizer(fertilizer);
-  hacks::disableCoinsCap(global::coinCapHackEnabled);
-  hacks::disableShopCap(global::shopCapHackEnabled);
-  hacks::freeShopItems(global::freeShopHackEnabled);
-  hacks::disablePlantCooldown(global::cooldownHackEnabled);
-  hacks::freePlants(global::freePlantsHackEnabled);
+  ImGui::Checkbox("Disable coins cap", &global::removeCoinCap);
+  ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::removeItemsCap);
+  ImGui::Checkbox("Free shop items", &global::freeShopItems);
+  ImGui::Checkbox("Disable plant cooldown", &global::removePlantCooldown);
+  ImGui::Checkbox("Free plants", &global::freePlants);
 
   ImGui::End();
 }

@@ -3,7 +3,6 @@
 #include "utils.hpp"
 #include "hook.hpp"
 
-
 class Game {
   private:
     s32* followPointerPath(std::vector<std::ptrdiff_t> offsets);

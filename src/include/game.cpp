@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "globals.hpp"
 
 /**
  * \brief General initialization of the object.

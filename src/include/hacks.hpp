@@ -1,7 +1,8 @@
 #pragma once
 
-#include "globals.hpp"
 #include "utils.hpp"
+#include "gui.hpp"
+#include <thread>
 
 namespace hacks {
   // TODO Kill all zombies
@@ -17,4 +18,6 @@ namespace hacks {
   void setChocolate(s32 chocolate);
   void setBugSpray(s32 bugSpray);
   void setFertilizer(s32 fertilizer);
+
+  void Update();
 }
