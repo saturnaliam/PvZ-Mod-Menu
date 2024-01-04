@@ -8,7 +8,6 @@ class Game {
     s32* followPointerPath(std::vector<std::ptrdiff_t> offsets);
     s32* followPointerPath(std::vector<std::ptrdiff_t> offsets, std::intptr_t base);
     s32 getLevelAddress();
-    void getSunAddress();
 
     std::vector<Hook*> hooks;
     PointerOffsets coinOffsets = { 0xEFFC4, 0x58, 0x24, 0xC, 0x10, 0x3C, 0x84 };
@@ -23,6 +22,7 @@ class Game {
     Game();
     ~Game();
 
+    void getSunAddress();
     Hook coinCapAddHook; // Caps the coins, but only when coins are added.
     Hook coinCapSubtractHook; // Caps the coins, but only when coins are subtracted.
     Hook shopCapHook; // Caps the fertilizer and bug spray at 20.

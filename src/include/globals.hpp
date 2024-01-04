@@ -13,6 +13,7 @@ namespace global {
   inline bool removePlantCooldown = false;
   inline bool removeItemsCap = false;
   inline bool invinciblePlants = false;
+  inline bool changedVariable = false;
 
   inline s32 pSun = -1;
   inline s32 pCoins = -1;

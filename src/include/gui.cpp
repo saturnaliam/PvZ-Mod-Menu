@@ -194,17 +194,21 @@ void gui::Render() noexcept {
   ImGui::SetNextWindowSize({WIDTH, HEIGHT});
   ImGui::Begin("PvZ Mods", &running, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
-  ImGui::InputScalar("Coins", ImGuiDataType_S32, &global::pCoins, NULL, NULL, "%d");
-  ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &global::pBugSpray, NULL, NULL, "%d");
-  ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &global::pChocolate, NULL, NULL, "%d");
-  ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &global::pFertilizer, NULL, NULL, "%d");
-  ImGui::InputScalar("Sun", ImGuiDataType_S32, &global::pSun, NULL, NULL, "%d");
+  static HackSettings hackSettings;
 
-  ImGui::Checkbox("Disable coins cap", &global::removeCoinCap);
-  ImGui::Checkbox("Disable fertilizer / bug spray cap", &global::removeItemsCap);
-  ImGui::Checkbox("Free shop items", &global::freeShopItems);
-  ImGui::Checkbox("Disable plant cooldown", &global::removePlantCooldown);
-  ImGui::Checkbox("Free plants", &global::freePlants);
+  ImGui::InputScalar("Coins", ImGuiDataType_S32, &hackSettings.coins, NULL, NULL, "%d");
+  ImGui::InputScalar("Bug Spray", ImGuiDataType_S32, &hackSettings.bugSpray, NULL, NULL, "%d");
+  ImGui::InputScalar("Chocolate", ImGuiDataType_S32, &hackSettings.chocolate, NULL, NULL, "%d");
+  ImGui::InputScalar("Fertilizer", ImGuiDataType_S32, &hackSettings.fertilizer, NULL, NULL, "%d");
+  ImGui::InputScalar("Sun", ImGuiDataType_S32, &hackSettings.sun, NULL, NULL, "%d");
+
+  ImGui::Checkbox("Disable coins cap", &hackSettings.coinsCapDisabled);
+  ImGui::Checkbox("Disable fertilizer / bug spray cap", &hackSettings.itemsCapDisabled);
+  ImGui::Checkbox("Free shop items", &hackSettings.freeShopEnabled);
+  ImGui::Checkbox("Disable plant cooldown", &hackSettings.plantCooldownDisabled);
+  ImGui::Checkbox("Free plants", &hackSettings.freePlantsEnabled);
+
+  hacks::Update(hackSettings);
 
   ImGui::End();
 }

@@ -36,7 +36,7 @@ void hacks::disablePlantCooldown(bool hackEnabled) {
  *
  * \param hackEnabled Enables/disables the hack.
  */
-void hacks::disableShopCap(bool hackEnabled) {
+void hacks::disableItemsCap(bool hackEnabled) {
   global::game.shopCapHook.setHook(hackEnabled);
 }
 
@@ -77,6 +77,17 @@ void hacks::setFertilizer(s32 fertilizer) {
 }
 
 /**
+ * \brief Sets sun to a specific value.
+ *
+ * \param sun The amount of sun to set.
+ */
+void hacks::setSun(s32 sun) {
+  if (global::game.sunAddress == nullptr) return;
+
+  *global::game.sunAddress = sun;
+}
+
+/**
  * \brief Makes every plant free.
  *
  * \param hackEnabled Enables/disables the hack.
@@ -89,19 +100,24 @@ void hacks::freePlants(bool hackEnabled) {
  * \brief Runs while the menu is currently up. Handles all the hacks and whatnot.
  *
  */
-void hacks::Update() {
-  while (gui::running) {
+void hacks::Update(HackSettings& hackSettings) {
+  global::game.getSunAddress();
 
-    if (global::pBugSpray != -1) hacks::setBugSpray(global::pBugSpray);
-    if (global::pChocolate != -1) hacks::setChocolate(global::pChocolate);
-    if (global::pCoins != -1) hacks::setCoins(global::pCoins);
-    if (global::pFertilizer != -1) hacks::setFertilizer(global::pFertilizer);
+  if (hackSettings.bugSpray != -1) hacks::setBugSpray(hackSettings.bugSpray);
+  if (hackSettings.chocolate != -1) hacks::setChocolate(hackSettings.chocolate);
+  if (hackSettings.coins != -1) hacks::setCoins(hackSettings.coins);
+  if (hackSettings.fertilizer != -1) hacks::setFertilizer(hackSettings.fertilizer);
+  if (hackSettings.sun != -1) hacks::setSun(hackSettings.sun);
 
-    global::pBugSpray = *global::game.bugSprayAddress - 1000;
-    global::pChocolate = *global::game.chocolateAddress - 1000;
-    global::pCoins = *global::game.coinAddress * 10;
-    global::pFertilizer = *global::game.fertilizerAddress - 1000;
+  hackSettings.bugSpray = *global::game.bugSprayAddress - 1000;
+  hackSettings.chocolate = *global::game.chocolateAddress - 1000;
+  hackSettings.coins = *global::game.coinAddress * 10;
+  hackSettings.fertilizer = *global::game.fertilizerAddress - 1000;
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  // extra processing to make sure that the sun address actually exists
+  if (global::game.sunAddress != nullptr) {
+    hackSettings.sun = *global::game.sunAddress;
+  } else {
+    hackSettings.sun = -1;
   }
 }
