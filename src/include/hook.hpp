@@ -2,6 +2,7 @@
 
 #include "utils.hpp"
 
+//! CRASHES DO NOT RUN WITHOUT FIXING
 class Hook {
   private:
     std::uint32_t bytes;
