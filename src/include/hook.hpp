@@ -12,7 +12,7 @@ class Hook {
     DWORD_PTR oldProtect;
 
   public:
-    void Initialize(std::ptrdiff_t hookOffset, u32 bytes, std::string oldBytes, std::string newBytes);
+    void Initialize(std::ptrdiff_t hookOffset, u32 bytes, const char* oldBytes, const char* newBytes);
     void setHook(bool hooked = true);
     ~Hook();
 };

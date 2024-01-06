@@ -1,5 +1,6 @@
 #include "hook.hpp"
 #include "globals.hpp"
+#include <assert.h>
 
 /**
  * \brief Initializing the hook.
@@ -9,12 +10,13 @@
  * \param oldBytes The opcodes that are at the location by default.
  * \param newBytes The opcodes to write.
  */
-void Hook::Initialize(std::ptrdiff_t hookOffset, u32 bytes, std::string oldBytes, std::string newBytes) {
+void Hook::Initialize(std::ptrdiff_t hookOffset, u32 bytes, const char* oldBytes, const char* newBytes) {
+  assert(sizeof(oldBytes) == sizeof(newBytes));
   this->oldProtect = NULL;
 
   this->hookLocation = reinterpret_cast<u8*>(global::game.baseAddress + hookOffset);
-  this->oldBytes = const_cast<char*>(oldBytes.c_str());
-  this->newBytes = const_cast<char*>(newBytes.c_str());
+  this->oldBytes = const_cast<char*>(oldBytes);
+  this->newBytes = const_cast<char*>(newBytes);
   this->bytes = bytes;
 
   VirtualProtect((void*)this->hookLocation, this->bytes, PAGE_EXECUTE_READWRITE, &this->oldProtect);
@@ -34,7 +36,7 @@ void Hook::setHook(bool hooked) {
     opcodes = this->oldBytes;
   }
 
-  memcpy(this->hookLocation, opcodes, sizeof(opcodes));
+  memcpy(this->hookLocation, opcodes, this->bytes);
 }
 
 /**

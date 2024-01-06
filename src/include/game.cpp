@@ -13,8 +13,8 @@ Game::Game() {
 
   this->getSunAddress();
 
-  this->coinCapAddHook.Initialize(0x34798, 2, "\x7E\x09" /* jle 0x09 */, "\xEB\x09" /* jmp 0x09 */);
-  this->coinCapSubtractHook.Initialize(0x9B635, 2, "\x7E\x09" /* jle 0x09 */, "\xEB\x09" /* jmp 0x09 */);
+  this->coinCapAddHook.Initialize(0x34798, 2, "\x7e\x09" /* jle 0x09 */, "\xeb\x09" /* jmp 0x09 */);
+  this->coinCapSubtractHook.Initialize(0x9B635, 2, "\x7e\x09" /* jle 0x09 */, "\xeB\x09" /* jmp 0x09 */);
   this->shopCapHook.Initialize(0x99624, 6, "\x83\xFA\x0F\x0F\x9F\xC0" /* setg al */, "\x90\x90\x90\xB0\x00\x90" /* mov al,0x0 | nop */);
   this->shopItemCostHook.Initialize(0x9B1CA, 12, "\xFF\x24\x8D\x44\xB2\x49\x00\xB8\xF4\x01\x00\x00" /* jmp dword ptr [ecx*4+BASE+0x9B244] | mov eax,0x1F4 */, "\x90\x90\x90\x90\x90\x90\x90\xB8\x00\x00\x00\x00" /* nop (x7) | mov eax,0x0 */);
   this->cooldownHook.Initialize(0x958C5, 2, "\x7E\x14" /* jle 0x14 */, "\x90\x90" /* nop (x2) */);
