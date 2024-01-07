@@ -7,6 +7,8 @@
 #include "game.hpp"
 
 namespace global {
+  const std::string ERROR_LOG_NAME = "error.log";
+
   inline bool removeCoinCap = false;
   inline bool freePlants = false;
   inline bool freeShopItems = false;

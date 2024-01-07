@@ -1,6 +1,5 @@
 #include "hook.hpp"
 #include "globals.hpp"
-#include <assert.h>
 
 /**
  * \brief Initializing the hook.
@@ -11,7 +10,10 @@
  * \param newBytes The opcodes to write.
  */
 void Hook::Initialize(std::ptrdiff_t hookOffset, u32 bytes, const char* oldBytes, const char* newBytes) {
-  assert(sizeof(oldBytes) == sizeof(newBytes));
+  if (sizeof(oldBytes) != bytes) {
+    logError(std::format("bytes to write not the same size as bytes allocated! {} bytes allocated, {} needed.", bytes, sizeof(oldBytes)));
+  }
+
   this->oldProtect = NULL;
 
   this->hookLocation = reinterpret_cast<u8*>(global::game.baseAddress + hookOffset);

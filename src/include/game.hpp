@@ -2,6 +2,7 @@
 
 #include "utils.hpp"
 #include "hook.hpp"
+#include "error_logging.hpp"
 
 class Game {
   private:

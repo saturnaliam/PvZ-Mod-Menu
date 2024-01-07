@@ -5,6 +5,7 @@
  *
  */
 Game::Game() {
+  clearLog();
   this->baseAddress = reinterpret_cast<std::intptr_t>(GetModuleHandle(NULL));
   this->coinAddress = this->followPointerPath(this->coinOffsets);
   this->bugSprayAddress = this->followPointerPath(this->bugSprayOffsets);

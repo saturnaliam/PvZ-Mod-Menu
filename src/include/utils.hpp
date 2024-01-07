@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <format>
+#include "error_logging.hpp"
 
 #define MAX_COINS 999990
 

@@ -1,9 +1,11 @@
 #include "include/globals.hpp"
 #include "include/hacks.hpp"
+#include "include/error_logging.hpp"
 #include "include/gui.hpp"
 #include <thread>
 #include <conio.h>
 #include <iostream>
+#include <fstream>
 
 DWORD_PTR WINAPI attachedMain(HMODULE hModule) {
   gui::CreateHWindow("pvz menu", "mmc");
