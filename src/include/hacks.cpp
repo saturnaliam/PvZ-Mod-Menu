@@ -108,4 +108,10 @@ void hacks::Update(HackSettings& hackSettings) {
   if (hackSettings.coins != -1) hacks::setCoins(hackSettings.coins);
   if (hackSettings.fertilizer != -1) hacks::setFertilizer(hackSettings.fertilizer);
   if (hackSettings.sun != -1) hacks::setSun(hackSettings.sun);
+
+  hacks::disableCoinsCap(hackSettings.coinsCapDisabled);
+  hacks::disableItemsCap(hackSettings.itemsCapDisabled);
+  hacks::disablePlantCooldown(hackSettings.plantCooldownDisabled);
+  hacks::freePlants(hackSettings.freePlantsEnabled);
+  hacks::freeShopItems(hackSettings.freeShopEnabled);
 }
