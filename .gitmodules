@@ -1,0 +1,3 @@
+[submodule "Dear ImGui"]
+	path = Dear ImGui
+	url = https://github.com/ocornut/imgui
